@@ -114,3 +114,17 @@ CALCULATE(
     COUNTROWS('Viajes'),
     'Viajes'[Comuna] <> SELECTEDVALUE('Viajes'[Comuna])
 )
+---------
+Viajes con Origen en el Barrio y Destino dentro de la Comuna = 
+CALCULATE(
+    COUNTROWS('Viajes'),
+    'Viajes'[BarrioOrigen] = SELECTEDVALUE('Viajes'[Barrio]) &&
+    'Viajes'[ComunaDestino] = SELECTEDVALUE('Viajes'[Comuna])
+)
+
+Viajes con Origen en el Barrio y Destino fuera de la Comuna = 
+CALCULATE(
+    COUNTROWS('Viajes'),
+    'Viajes'[BarrioOrigen] = SELECTEDVALUE('Viajes'[Barrio]) &&
+    'Viajes'[ComunaDestino] <> SELECTEDVALUE('Viajes'[Comuna])
+)
