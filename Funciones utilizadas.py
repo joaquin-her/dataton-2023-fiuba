@@ -94,3 +94,23 @@ Viajes fuera de la Comuna = CALCULATE(
     'TablaViajes'[EstacionInicio.Comuna] <> "NombreDeLaComuna",
     'TablaViajes'[EstacionFin.Comuna] <> "NombreDeLaComuna"
 )
+.----- ------ -
+''' Asumiendo que tienes una columna que indica el barrio (Barrio), otra columna para la comuna (Comuna), y una columna para la estación de destino (EstacionDestino) en tu conjunto de datos llamado Viajes, aquí hay un ejemplo general de cómo podrías hacer esto utilizando medidas calculadas en Power BI: '''
+Viajes dentro del Barrio = 
+CALCULATE(
+    COUNTROWS('Viajes'),
+    'Viajes'[Barrio] = SELECTEDVALUE('Viajes'[Barrio])
+)
+
+Viajes fuera del Barrio pero dentro de la Comuna = 
+CALCULATE(
+    COUNTROWS('Viajes'),
+    'Viajes'[Barrio] <> SELECTEDVALUE('Viajes'[Barrio]),
+    'Viajes'[Comuna] = SELECTEDVALUE('Viajes'[Comuna])
+)
+
+Viajes fuera de la Comuna = 
+CALCULATE(
+    COUNTROWS('Viajes'),
+    'Viajes'[Comuna] <> SELECTEDVALUE('Viajes'[Comuna])
+)
