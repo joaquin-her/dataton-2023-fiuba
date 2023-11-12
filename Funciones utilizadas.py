@@ -69,3 +69,28 @@ for index, row in estaciones_csv.iterrows():
     if nombre_estacion not in latitudEstaciones:
         latitudEstaciones[nombre_estacion] = latitud
         longitudEstaciones[nombre_estacion] = longitud
+
+-- ---- --
+Viajes dentro del Barrio = CALCULATE(
+    COUNTROWS('TablaViajes'),
+    'TablaViajes'[EstacionInicio.Barrio] = "NombreDelBarrio",
+    'TablaViajes'[EstacionFin.Barrio] = "NombreDelBarrio"
+)
+
+Viajes fuera del Barrio = CALCULATE(
+    COUNTROWS('TablaViajes'),
+    'TablaViajes'[EstacionInicio.Barrio] = "NombreDelBarrio",
+    'TablaViajes'[EstacionFin.Barrio] <> "NombreDelBarrio"
+)
+
+Viajes dentro de la Comuna = CALCULATE(
+    COUNTROWS('TablaViajes'),
+    'TablaViajes'[EstacionInicio.Comuna] = "NombreDeLaComuna",
+    'TablaViajes'[EstacionFin.Comuna] = "NombreDeLaComuna"
+)
+
+Viajes fuera de la Comuna = CALCULATE(
+    COUNTROWS('TablaViajes'),
+    'TablaViajes'[EstacionInicio.Comuna] <> "NombreDeLaComuna",
+    'TablaViajes'[EstacionFin.Comuna] <> "NombreDeLaComuna"
+)
